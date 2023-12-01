@@ -6,13 +6,13 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  * Class to calculate and inform each person of the targetted person they have to give a gift.
@@ -76,13 +76,13 @@ public class RandomGift
               Properties prop = System.getProperties();
               prop.put("mail.smtp.host", __SMTP_HOST);
               Session session = Session.getDefaultInstance(prop, null);
-              Message message = new MimeMessage(session);
+              MimeMessage message = new MimeMessage(session);
               message.setFrom(new InternetAddress(__SENDER));
               InternetAddress[] internetAddresses = new InternetAddress[1];
               internetAddresses[0] = new InternetAddress(offerer.getMail());
               message.setRecipients(Message.RecipientType.TO, internetAddresses);
-              message.setSubject("[Cadeau Noël] Et l'heureux gagnant de votre cadeau sera...");
-              message.setText(winner.getFirstName());
+              message.setSubject("[Cadeau Noël] Et l'heureux gagnant de votre cadeau sera...", "UTF-8");
+              message.setText(winner.getFirstName(), "UTF-8");
               Transport.send(message);
          }
          catch (AddressException e)
